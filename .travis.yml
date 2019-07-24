@@ -7,8 +7,12 @@ dart:
 
 before_install:
   - export DISPLAY=:99.0
-  
-script:
-  - pwd
-  - pub get
-  - pub run test
+
+dart_task:
+  - test: --platform vm
+  - test: --platform chrome
+  - test: --exclude-tags no-xvfb
+  - test: --tags no-xvfb
+  - dartanalyzer: --fatal-warnings lib
+install_dartium: true
+xvfb: false
