@@ -7,7 +7,7 @@ dart:
 
 before_install:
   - export DISPLAY=:99.0
-
+  - export PUB_HOSTED_URL=https://pub.flutter-io.cn
 dart_task:
   - test: --platform vm
   - test: --platform chrome
