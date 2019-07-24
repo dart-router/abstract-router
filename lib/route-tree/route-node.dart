@@ -56,6 +56,10 @@ class RouteNode {
     return _handleMap[key];
   }
 
+  bool get isHandleNode {
+    return _handleMap.isNotEmpty;
+  }
+
   @override
   int get hashCode {
     return key.hashCode;
@@ -279,9 +283,9 @@ class MatchResult {
   int nodeIndex;
   // 当前节点下的参数子节点已经匹配到的下标索引
   int paramChildIndex;
-  // 当前节点下的通配符子节点已经匹配到的下标索引
-  // int wildcardChildIndex;
-
+  // 文本部分路径子节点是否已匹配过
+  bool partChildrenHadMatch = false;
+  
   MatchResult(this.node, {this.value = '', this.nodeIndex = 0, this.paramChildIndex = 0});
 
   bool get paramChildCanBacktracking {

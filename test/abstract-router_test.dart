@@ -2,11 +2,10 @@ import 'package:abstract_router/abstract-router.dart';
 import 'package:test/test.dart';
 
 void main() {
-  
   group('Test route handlers', () {
     AbstractRouter router = AbstractRouter();
-    test('PartRoute sigle path segment', () {
 
+    test('PartRoute sigle path segment', () {
       router.handle('/user', (RouterContext context) async {
         assert(context.path == '/user');
         assert(context.params.isEmpty);
@@ -17,6 +16,7 @@ void main() {
       RouterContext context = router.parse('/user');
       context.handler(context);
     });
+
     test('PartRoute multi path segment', () {
       const String path = '/user/any/path/test';
       router.handle(path, (RouterContext context) async {
@@ -27,6 +27,9 @@ void main() {
       });
 
       RouterContext context = router.parse(path);
+      RouterContext context1 = router.parse(path, "GET");
+      assert(context1 != null);
+      assert(context1.handler == null);
       context.handler(context);
     });
 
@@ -66,15 +69,57 @@ void main() {
       context.handler(context);
     });
 
+    test('Route not match with method', () {
+      const String path = '/user/any/path/test';
+
+      RouterContext context = router.parse(path, "GET");
+      assert(context != null);
+      assert(context.handler == null);
+    });
+
+    test('Route not match with path', () {
+      const String path = '/user/haha';
+
+      RouterContext context = router.parse(path);
+      assert(context == null);
+    });
   });
 
   group('Test route middlares', () {
     AbstractRouter router = AbstractRouter();
-    test('Some middlewares at some path and middlewares sort', () {
+    List<RouteMiddleware> middlewares = [
+      (RouterContext context) async {
+        print('0');
+      },
+      (RouterContext context) async {
+        print('1');
+      },
+      (RouterContext context) async {
+        print('2');
+      }
+    ];
+    test('Some middlewares at some path', () {
+      const String routeId = '/admin/*somePath';
+      const String path = '/admin/abc/def/ghi/jk';
+
+      router.handle(routeId, (RouterContext context) async {
+        assert(context.path == path);
+        assert(context.params['somePath'] == 'abc/def/ghi/jk');
+        assert(context.queries.isEmpty);
+        assert(context.routeId == routeId);
+      });
+
+      router.use('/admin', middlewares.sublist(0, 1));
+
+      RouterContext context1 = router.parse(path);
+      assert(context1.middlewares.length == 1);
+      assert(context1.middlewares[0] == middlewares[0]);
+      context1.handler(context1);
+    });
+
+    test('Middlewares sort', () {
       const String routeId = '/user/:any/:path/*somePart';
-      const String routeId1 = '/admin/*somePath';
       const String path = '/user/some/param/test/some/segments/at/end';
-      const String path1 = '/admin/abc/def/ghi/jk';
 
       router.handle(routeId, (RouterContext context) async {
         assert(context.path == path);
@@ -85,17 +130,7 @@ void main() {
         assert(context.routeId == routeId);
       });
 
-      router.handle(routeId1, (RouterContext context) async {
-        assert(context.path == path1);
-        assert(context.params['somePath'] == 'abc/def/ghi/jk');
-        assert(context.queries.isEmpty);
-        assert(context.routeId == routeId1);
-      });
-
-      List<RouteMiddleware> middlewares = [(RouterContext context) async { print('0'); }, (RouterContext context) async { print('1'); }, (RouterContext context) async { print('2'); }];
-
-      router.use('/admin', middlewares.sublist(0,1));
-      router.use('/user/:any', middlewares.sublist(1,2));
+      router.use('/user/:any', middlewares.sublist(1, 2));
       router.use('/user/:any/:path', middlewares.sublist(2));
 
       RouterContext context = router.parse(path);
@@ -103,11 +138,6 @@ void main() {
       assert(context.middlewares[0] == middlewares[1]);
       assert(context.middlewares[1] == middlewares[2]);
       context.handler(context);
-
-      RouterContext context1 = router.parse(path1);
-      assert(context1.middlewares.length == 1);
-      assert(context1.middlewares[0] == middlewares[0]);
-      context1.handler(context1);
     });
   });
 }

@@ -100,8 +100,14 @@ class RouteTree {
       lastMatchResult = matchedResults.top;
       RouteNode currentNode = lastMatchResult.node;
 
-      // 1. 在partChildren中匹配
-      MatchResult matchResult = currentNode.matchPartChildren(pathPart);
+      MatchResult matchResult;
+
+      if(!lastMatchResult.partChildrenHadMatch) {
+        // 1. 在partChildren中匹配
+        matchResult = currentNode.matchPartChildren(pathPart);
+        lastMatchResult.partChildrenHadMatch = true;
+      }
+
       // 2. 在paramChildren中匹配
       if(matchResult == null) {
         matchResult = currentNode.matchParamChildren(pathPart, lastMatchResult.paramChildIndex);
@@ -111,9 +117,35 @@ class RouteTree {
         matchResult = currentNode.matchWildcardChild(pathPart);
       }
 
-      if(matchResult != null) {
+      if(matchResult != null) { // 匹配到了路由节点
+
+        if(pathParts.isEmpty && matchResult.node.getHandler(method) == null) {// 已经匹配到路径最后了，但是没有找到对应的处理器函数，则需要检查回滚
+          pathParts.push(pathPart);
+          switch(_backtrackingCheck(pathParts, matchedResults)) {
+            case _BacktrackingState.cant:
+              // 回溯之前需要判断层级，需要判断是不是每一层都已经回溯完了，如果都回溯完了的话，就表明当前路径是 404 的情况
+              // 不可回溯，如果可回溯的话，两个栈的状态都会回溯到正确位置
+              // 完全不可回溯了，也就是整个匹配过程已结束，但并未匹配上带当前方法的处理器的路由
+              if(matchResult.node.isHandleNode) { // 检查是否是绑定了处理器的节点，如果是绑定了处理器的节点，则属于方法未找到
+                matchedResults.push(matchResult);
+                hasEnded = true;
+              } else { // 未绑定该路由
+                return null;
+              }
+              break;
+            case _BacktrackingState.yes:
+              // ignore this do next loop
+              break;
+            case _BacktrackingState.stop:
+              hasEnded = true;
+              break;
+          }
+          break;
+        }
+
         // 将匹配上的结果入栈
         matchedResults.push(matchResult);
+
         // 该情况是当前段已匹配上了一个节点，接下来继续匹配下一个节点
         if(matchResult.node.type == NodeType.param) {
           lastMatchResult.paramChildIndex ++;
@@ -201,9 +233,9 @@ class RouteTree {
     while(matchedResults.isNotEmpty) {
       lastMatchResult = matchedResults.top;
 
-      if(lastMatchResult.node.type == NodeType.wildcard) { // 如果当前回溯到的节点自身是通配节点的话，那就不用再往回回溯了，直接结束
-        return _BacktrackingState.stop;
-      }
+      // if(lastMatchResult.node.type == NodeType.wildcard) { // 如果当前回溯到的节点自身是通配节点的话，那就不用再往回回溯了，直接结束
+      //   return _BacktrackingState.stop;
+      // }
 
       if(lastMatchResult.paramChildCanBacktracking) { // 参数子节点可以回溯，则回溯到此位置，继续匹配
         // lastMatchResult.paramChildIndex ++;
