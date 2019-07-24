@@ -1,5 +1,5 @@
 name: abstract_router
-description: An powerful Http client for Dart, which supports Interceptors, FormData, Request Cancellation, File Downloading, Timeout etc.
+description: An abstract routing implementation that provides a low-level implementation of a fast, efficient, and practical routing system for any scenario that uses routing.
 version: 1.0.0
 homepage: https://github.com/dart-router/abstract-router
 author: 老三 <123572970@qq.com>
