@@ -43,5 +43,4 @@ class RouteMiddlewareWrap {
   final RouteMiddleware handleFunc;
 
   RouteMiddlewareWrap(this.seq, this.handleFunc);
-
 }
