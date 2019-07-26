@@ -7,9 +7,9 @@
 The original intention of abstract routing is to implement a simple routing system for mapping URIs to specified handlers and to support binding of middleware to paths. It parses the parameter information, middleware, and processing functions carried by the URI and places it in the context of the `RouterContext` for the real routing system.
 
 
-[API Documentation on pub.dev](https://pub.dev/documentation/abstract_router/latest/abstract-router/abstract-router-library.html)
+[API Documentation on pub.dev](https://pub.dev/documentation/abstract_router/latest/)
 
-[API Documentation on flutter-cn.io](https://pub.flutter-io.cn/documentation/abstract_router/latest/abstract-router/abstract-router-library.html)
+[API Documentation on flutter-cn.io](https://pub.flutter-io.cn/documentation/abstract_router/latest/)
 
 MIT License
 

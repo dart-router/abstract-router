@@ -1,3 +1,11 @@
+## 1.0.6  
+
+* Update the examples display.
+
+## 1.0.5  
+
+* Documentation link in README.
+
 ## 1.0.4 
 
 * Remove documentation in github.
