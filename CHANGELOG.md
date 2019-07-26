@@ -1,3 +1,7 @@
+## 1.0.3 
+
+* Fix the documentation location.
+
 ## 1.0.2 
 
 * Add API documentation.
