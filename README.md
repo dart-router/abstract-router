@@ -7,7 +7,7 @@
 The original intention of abstract routing is to implement a simple routing system for mapping URIs to specified handlers and to support binding of middleware to paths. It parses the parameter information, middleware, and processing functions carried by the URI and places it in the context of the `RouterContext` for the real routing system.
 
 
-[API Documentation](doc/index.html)
+[API Documentation](doc/api/index.html)
 
 
 MIT License
