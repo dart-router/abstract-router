@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/dart-router/abstract-router.svg?branch=master)](https://travis-ci.org/dart-router/abstract-router)
 
-[English Documentation](./README.md) | [中文文档](./README.zh_cn.md)
+[中文文档](./README.zh_cn.md)
 
 The original intention of abstract routing is to implement a simple routing system for mapping URIs to specified handlers and to support binding of middleware to paths. It parses the parameter information, middleware, and processing functions carried by the URI and places it in the context of the `RouterContext` for the real routing system.
 
