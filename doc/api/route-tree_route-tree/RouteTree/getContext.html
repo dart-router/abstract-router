@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the getContext method from the RouteTree class, for the Dart programming language.">
+  <title>getContext method - RouteTree class - route-tree library - Dart API</title>
+  <!-- required because all the links are pseudo-absolute -->
+  <base href="../..">
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="static-assets/github.css">
+  <link rel="stylesheet" href="static-assets/styles.css">
+  <link rel="icon" href="static-assets/favicon.png">
+  
+</head>
+
+<body>
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="index.html">abstract_router</a></li>
+    <li><a href="route-tree_route-tree/route-tree_route-tree-library.html">route-tree</a></li>
+    <li><a href="route-tree_route-tree/RouteTree-class.html">RouteTree</a></li>
+    <li class="self-crumb">getContext method</li>
+  </ol>
+  <div class="self-name">getContext</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+  <div id="dartdoc-sidebar-left" class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+      <form class="search-sidebar" role="search">
+        <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+      </form>
+    </header>
+    
+    <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+      <li><a href="index.html">abstract_router</a></li>
+      <li><a href="route-tree_route-tree/route-tree_route-tree-library.html">route-tree</a></li>
+      <li><a href="route-tree_route-tree/RouteTree-class.html">RouteTree</a></li>
+      <li class="self-crumb">getContext method</li>
+    </ol>
+    
+    <h5>RouteTree class</h5>
+    <ol>
+      <li class="section-title"><a href="route-tree_route-tree/RouteTree-class.html#constructors">Constructors</a></li>
+      <li><a href="route-tree_route-tree/RouteTree/RouteTree.html">RouteTree</a></li>
+    
+      <li class="section-title">
+        <a href="route-tree_route-tree/RouteTree-class.html#instance-properties">Properties</a>
+      </li>
+      <li><a href="route-tree_route-tree/RouteTree/root.html">root</a></li>
+      <li class="inherited"><a href="route-tree_route-tree/RouteTree/hashCode.html">hashCode</a></li>
+      <li class="inherited"><a href="route-tree_route-tree/RouteTree/runtimeType.html">runtimeType</a></li>
+    
+      <li class="section-title"><a href="route-tree_route-tree/RouteTree-class.html#instance-methods">Methods</a></li>
+      <li><a href="route-tree_route-tree/RouteTree/addMiddlewares.html">addMiddlewares</a></li>
+      <li><a href="route-tree_route-tree/RouteTree/addRoute.html">addRoute</a></li>
+      <li><a href="route-tree_route-tree/RouteTree/getContext.html">getContext</a></li>
+      <li class="inherited"><a href="route-tree_route-tree/RouteTree/noSuchMethod.html">noSuchMethod</a></li>
+      <li class="inherited"><a href="route-tree_route-tree/RouteTree/toString.html">toString</a></li>
+    
+      <li class="section-title inherited"><a href="route-tree_route-tree/RouteTree-class.html#operators">Operators</a></li>
+      <li class="inherited"><a href="route-tree_route-tree/RouteTree/operator_equals.html">operator ==</a></li>
+    
+    
+    
+    </ol>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
+      <div><h1><span class="kind-method">getContext</span> method</h1></div>
+
+    <section class="multi-line-signature">
+      <span class="returntype"><a href="route-tree_types/RouterContext-class.html">RouterContext</a></span>
+            <span class="name ">getContext</span>
+(<wbr><span class="parameter" id="getContext-param-path"><span class="type-annotation">String</span> <span class="parameter-name">path</span>, [</span> <span class="parameter" id="getContext-param-method"><span class="type-annotation">String</span> <span class="parameter-name">method</span> = <span class="default-value">DEFAULT_METHOD</span></span> ])
+      
+    </section>
+    <section class="desc markdown">
+      <p>根据一个路径，获取路由上下文</p>
+    </section>
+    
+    <section class="summary source-code" id="source">
+      <h2><span>Implementation</span></h2>
+      <pre class="language-dart"><code class="language-dart">RouterContext getContext(String path, [String method = DEFAULT_METHOD]) {
+  assert(path != &#39;&#39;);
+  final Uri uri = Uri.parse(path);
+  &#47;&#47; 使用 &#47; 拆分路径
+  Stack&lt;String&gt; pathParts = Stack(uri.pathSegments);
+
+  String pathPart;
+  Stack&lt;MatchResult&gt; matchedResults = Stack([MatchResult(root)]);
+  MatchResult lastMatchResult;
+  bool hasEnded = false;
+  while (pathParts.isNotEmpty &amp;&amp; !hasEnded) {
+    pathPart = pathParts.pop();
+
+    if (pathPart == &#39;&#39;) {
+      &#47;&#47;忽略空的部分路径
+      continue;
+    }
+
+    lastMatchResult = matchedResults.top;
+    RouteNode currentNode = lastMatchResult.node;
+
+    MatchResult matchResult;
+
+    if (!lastMatchResult.partChildrenHadMatch) {
+      &#47;&#47; 1. 在partChildren中匹配
+      matchResult = currentNode.matchPartChildren(pathPart);
+      lastMatchResult.partChildrenHadMatch = true;
+    }
+
+    &#47;&#47; 2. 在paramChildren中匹配
+    if (matchResult == null) {
+      matchResult = currentNode.matchParamChildren(
+          pathPart, lastMatchResult.paramChildIndex);
+    }
+    &#47;&#47; 3. 在wildChildren中匹配
+    if (matchResult == null) {
+      matchResult = currentNode.matchWildcardChild(pathPart);
+    }
+
+    if (matchResult != null) {
+      &#47;&#47; 匹配到了路由节点
+
+      &#47;&#47; 将匹配上的结果入栈
+      matchedResults.push(matchResult);
+
+      &#47;&#47; 该情况是当前段已匹配上了一个节点，接下来继续匹配下一个节点
+      if (matchResult.node.type == NodeType.param) {
+        lastMatchResult.paramChildIndex++;
+      }
+
+      if (matchResult.node.type == NodeType.wildcard) {
+        pathParts.push(pathPart);
+        hasEnded = true;
+        &#47;&#47; 匹配到通配节点，结束匹配
+        break;
+      }
+
+      if (pathParts.isEmpty &amp;&amp; matchResult.node.getHandler(method) == null) {
+        &#47;&#47; 已经匹配到路径最后了，但是没有找到对应的处理器函数，则需要检查回滚
+        if (matchResult.node.isHandleNode) {
+          &#47;&#47; 匹配到了已绑定的路由，但是方法未能匹配，匹配已结束
+          hasEnded = true;
+        } else {
+          pathParts.push(pathPart);
+          matchedResults.pop();
+          switch (_backtrackingCheck(pathParts, matchedResults)) {
+            case _BacktrackingState.cant:
+              &#47;&#47; 回溯之前需要判断层级，需要判断是不是每一层都已经回溯完了，如果都回溯完了的话，就表明当前路径是 404 的情况
+              &#47;&#47; 不可回溯，如果可回溯的话，两个栈的状态都会回溯到正确位置
+              &#47;&#47; 完全不可回溯了，也就是整个匹配过程已结束，但并未匹配上带当前方法的处理器的路由
+              return null;
+              break;
+            case _BacktrackingState.yes:
+              &#47;&#47; ignore this do next loop
+              break;
+            case _BacktrackingState.stop:
+              hasEnded = true;
+              break;
+          }
+        }
+      }
+    } else {
+      &#47;&#47; 当前这帧没有匹配上，则加回到栈中，然后再检查回溯条件
+      pathParts.push(pathPart);
+      switch (_backtrackingCheck(pathParts, matchedResults)) {
+        case _BacktrackingState.cant:
+          &#47;&#47; 回溯之前需要判断层级，需要判断是不是每一层都已经回溯完了，如果都回溯完了的话，就表明当前路径是 404 的情况
+          &#47;&#47; 不可回溯，如果可回溯的话，两个栈的状态都会回溯到正确位置
+          &#47;&#47; 完全不可回溯了，也就是整个匹配过程已结束，但并未匹配上路由
+          return null;
+        case _BacktrackingState.yes:
+          &#47;&#47; ignore this do next loop
+          break;
+        case _BacktrackingState.stop:
+          hasEnded = true;
+          break;
+      }
+    }
+  }
+
+  if (matchedResults.isEmpty) {
+    &#47;&#47; 匹配完成之后，并未匹配到记录
+    return null;
+  }
+
+  &#47;&#47; 已经匹配上了，根据匹配结果集构造路由上下文
+  RouterContext context =
+      _generateRouterContext(pathParts, matchedResults, method);
+  context.path = path;
+  context.queries = uri.queryParametersAll.map(
+      (String key, List&lt;String&gt; value) =&gt;
+          MapEntry(key, value.length == 1 ? value[0] : value));
+
+  return context;
+}</code></pre>
+    </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-right" class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    abstract_router 1.0.2
+  </span>
+
+  
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="static-assets/typeahead.bundle.min.js"></script>
+<script src="static-assets/highlight.pack.js"></script>
+<script src="static-assets/URI.js"></script>
+<script src="static-assets/script.js"></script>
+
+
+</body>
+
+</html>
