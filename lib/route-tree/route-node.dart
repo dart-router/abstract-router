@@ -296,3 +296,19 @@ class MatchResult {
     return node.wildcardChild != null;
   }
 }
+
+enum NodeType {
+  // 路径的一部分
+  part,
+  // 参数节点
+  param,
+  // 通配符参数
+  wildcard,
+}
+
+class RouteMiddlewareWrap {
+  final int seq;
+  final RouteMiddleware handleFunc;
+
+  RouteMiddlewareWrap(this.seq, this.handleFunc);
+}

@@ -1,3 +1,8 @@
+## 1.0.2 
+
+* Add API documentation.
+* Remove unnecessary exports.
+
 ## 1.0.1  
 
 * Add Changelog.

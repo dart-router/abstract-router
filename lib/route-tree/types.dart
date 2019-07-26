@@ -1,16 +1,9 @@
-
+/// 路由处理器 <br>
+/// The function as handler for router.
 typedef Future<dynamic> RouteHandler(RouterContext context);
 
-enum NodeType {
-  // 路径的一部分
-  part,
-  // 参数节点
-  param,
-  // 通配符参数
-  wildcard,
-}
-
-// 抽象路由上下文
+/// 路由上下文 <br>
+/// The router context for some path
 class RouterContext {
   // 访问路由时的路径
   String path;
@@ -35,12 +28,6 @@ class RouterContext {
     return '{path=${path}, routeId=${routeId}, params=${params}, queries=${queries}}';
   }
 }
-
+/// 路由中间件 <br>
+/// The function as middleware for router.
 typedef Future<dynamic> RouteMiddleware (RouterContext context);
-
-class RouteMiddlewareWrap {
-  final int seq;
-  final RouteMiddleware handleFunc;
-
-  RouteMiddlewareWrap(this.seq, this.handleFunc);
-}
