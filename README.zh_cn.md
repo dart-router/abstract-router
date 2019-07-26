@@ -6,7 +6,9 @@
 
 抽象路由的初衷是为了实现一个简单的路由系统，用于将URI映射到指定的处理函数，并且支持给路径绑定中间件。它根据URI解析携带的参数信息、中间件以及处理函数，将其放到`RouterContext`上下文中，供真实的路由系统支配。
 
-[API文档](doc/api/index.html)
+[API文档 pub.dev](https://pub.dev/documentation/abstract_router/latest/abstract-router/abstract-router-library.html)
+
+[API文档 flutter-cn.io](https://pub.flutter-io.cn/documentation/abstract_router/latest/abstract-router/abstract-router-library.html)
 
 MIT License
 
