@@ -1,3 +1,7 @@
+## 1.0.7  
+
+* Add badges.
+
 ## 1.0.6  
 
 * Update the examples display.
