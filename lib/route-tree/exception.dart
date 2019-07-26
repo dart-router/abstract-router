@@ -1,4 +1,4 @@
-import './route-node.dart';
+import 'route_node.dart';
 
 // 当路由产生冲突的时候抛出异常.
 class RouteConflictException implements Exception {

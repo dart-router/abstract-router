@@ -12,4 +12,5 @@ build/
 pubspec.lock
 
 # Directory created by dartdoc
+doc/
 .cookies/

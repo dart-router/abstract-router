@@ -1,6 +1,6 @@
-import 'route-tree/route-tree.dart';
+import 'route-tree/route_tree.dart';
 import 'route-tree/types.dart';
-import 'route-tree/route-node.dart';
+import 'route-tree/route_node.dart';
 
 export 'route-tree/types.dart';
 /// 抽象的路由系统，其包含绑定路径处理器、中间件以及根据路由信息解析路径获得上下文 <br>

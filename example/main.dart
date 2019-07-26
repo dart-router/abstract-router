@@ -1,4 +1,4 @@
-import 'package:abstract_router/abstract-router.dart';
+import 'package:abstract_router/abstract_router.dart';
 
 void main() {
   AbstractRouter router = AbstractRouter();

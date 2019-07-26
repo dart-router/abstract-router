@@ -1,4 +1,4 @@
-import 'package:abstract_router/abstract-router.dart';
+import 'package:abstract_router/abstract_router.dart';
 import 'package:test/test.dart';
 
 void main() {

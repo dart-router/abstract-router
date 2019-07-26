@@ -1,3 +1,9 @@
+## 1.0.4 
+
+* Remove documentation in github.
+* Modify naming to conform to the dart specification.
+
+
 ## 1.0.3 
 
 * Fix the documentation location.
