@@ -14,3 +14,7 @@ pubspec.lock
 # Directory created by dartdoc
 doc/
 .cookies/
+
+# created by test converage 
+.test_coverage.dart
+coverage/

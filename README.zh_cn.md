@@ -1,6 +1,8 @@
 # 抽象路由
 
+[![版本](https://img.shields.io/badge/version-1.0.7-blue.svg)](https://pub.dev/packages/abstract_router)
 [![构建状态](https://travis-ci.org/dart-router/abstract-router.svg?branch=master)](https://travis-ci.org/dart-router/abstract-router)
+![单元测试覆盖率](https://raw.githubusercontent.com/dart-router/abstract-router/master/coverage_badge.svg?sanitize=true)
 
 [English Documentation](./README.md)
 

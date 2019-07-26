@@ -1,6 +1,8 @@
 # Abstract Router
 
+[![Version](https://img.shields.io/badge/version-1.0.7-blue.svg)](https://pub.dev/packages/abstract_router)
 [![Build Status](https://travis-ci.org/dart-router/abstract-router.svg?branch=master)](https://travis-ci.org/dart-router/abstract-router)
+![Coverage](https://raw.githubusercontent.com/dart-router/abstract-router/master/coverage_badge.svg?sanitize=true)
 
 [中文文档](./README.zh_cn.md)
 
